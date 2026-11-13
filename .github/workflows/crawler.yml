@@ -213,3 +213,12 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy cloudflare_dist --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+
+      - name: Upload radar report
+        if: success()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: radar-report-${{ github.run_id }}
+          path: index.html
+          retention-days: 7
+          if-no-files-found: error
